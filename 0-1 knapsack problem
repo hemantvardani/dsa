@@ -1,0 +1,69 @@
+// this is of geek for geeks problam set 
+
+// link - https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
+
+
+// here used dptable[][] for  memoziation
+// here used memset for putting all value -1
+// here used 3 conditions
+// here , if for any particular i , if weight[i]>W(weight still to be filled , then continue with i-1)
+// here , if not that , then chose which has more value either if i(th) included (val[n-1]+fun2(W-wt[n-1],wt,val,n-1)) or if i(th) not included (fun2(W,wt,val,n-1)) ;
+// everytime do check if for particular W and n , whether dptable is already filled , if yes then do use that value  
+
+
+
+
+
+
+int  dptable[1002][1002];
+class Solution
+{
+    public:
+    //Function to return max value that can be put in knapsack of capacity W.
+    int knapSack(int W, int wt[], int val[], int n) 
+    {
+        memset(dptable, -1, sizeof(dptable)); 
+        
+        return fun2(W,wt,val,n);
+        
+       // Your code here
+       
+    }
+    
+    
+    
+    
+    int fun2(int W, int wt[], int val[], int n)
+    {
+        if(W==0||n==0)
+       {
+           
+           return 0;
+           
+       }
+       
+       else if(dptable[W][n]!=-1)
+       {
+           return  dptable[W][n];
+       }
+       
+       else
+       {
+           if(wt[n-1]>W)
+           {
+               return dptable[W][n]=fun2(W,wt,val,n-1);
+           }
+           else
+           {
+               return dptable[W][n]=max(val[n-1]+fun2(W-wt[n-1],wt,val,n-1),fun2(W,wt,val,n-1));
+               
+           }
+           
+           
+       }
+        
+        
+    }
+    
+    
+};
