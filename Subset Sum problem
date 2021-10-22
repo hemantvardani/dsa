@@ -1,0 +1,38 @@
+int dptable[100005][105];
+class Solution{   
+public:
+
+    bool isSubsetSum(int N, int arr[], int sum){
+        // code here 
+        memset(dptable,-1,sizeof(dptable));
+        return fun(N,arr ,sum);
+    }
+    
+    int fun(int N, int arr[], int sum)
+    {
+        if(dptable[sum][N]!=-1)
+         return  dptable[sum][N];
+        
+        if(sum==0)
+        return 1;
+        
+        if(N==0)
+        return 0;
+        
+        else
+        {
+            if(arr[N-1]>sum)
+            {
+                return dptable[sum][N]=fun(N-1,arr,sum);
+                
+            }
+            else
+            {
+                 return dptable[sum][N]=( fun(N-1,arr,sum-arr[N-1])||fun(N-1,arr,sum));
+            }
+            
+        }
+        
+    }
+    
+};
